@@ -102,7 +102,12 @@ export const updateUser = async (req, res) => {
             return res.status(401).json({ msg: "Información a actualizar no suministrada!" })
         }
 
-        const user = await User.findByIdAndUpdate({ identification: req.params.id }, req.body, { new: true })
+        const { phone, province, canton, district, exactAddress } = req.body
+
+        const user = await User.updateOne(
+            { identification: req.params.id },
+            { $set: { phone: phone, province: province, canton: canton, district: district, exactAddress: exactAddress } },
+        )
 
         if (user) {
             return res.status(200).json({ msg: "Perfil Actualizado!" })
