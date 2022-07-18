@@ -80,7 +80,7 @@ export const login = async (req, res) => {
 export const getUser = async (req, res) => {
     const userData = await User.find(
         { identification: req.params.id },
-        { _id: 0, genre: 0, identification: 0, identificationType: 0, token: 0 }
+        { _id: 0, genre: 0, token: 0 }
     )
 
     if (userData) {
