@@ -80,7 +80,7 @@ export const login = async (req, res) => {
 export const getUser = async (req, res) => {
     const userData = await User.find(
         { identification: req.params.id },
-        { _id: 0, genre: 0, identification: 0, identificationType: 0, token: 0 }
+        { _id: 0, genre: 0, token: 0 }
     )
 
     if (userData) {
@@ -102,7 +102,12 @@ export const updateUser = async (req, res) => {
             return res.status(401).json({ msg: "Información a actualizar no suministrada!" })
         }
 
-        const user = await User.findByIdAndUpdate({ identification: req.params.id }, req.body, { new: true })
+        const { phone, province, canton, district, exactAddress } = req.body
+
+        const user = await User.updateOne(
+            { identification: req.params.id },
+            { $set: { phone: phone, province: province, canton: canton, district: district, exactAddress: exactAddress } },
+        )
 
         if (user) {
             return res.status(200).json({ msg: "Perfil Actualizado!" })
