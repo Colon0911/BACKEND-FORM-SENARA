@@ -5,6 +5,7 @@ import cors from 'cors'
 import config from './src/config/config.js'
 // import corsOptions from './src/utils/corsOptions.js'
 import userRoutes from './src/routes/user.routes.js'
+import solicitudRoutes from './src/routes/form.routes.js'
 
 //Creating Server
 const app = express()
@@ -21,6 +22,7 @@ app.use(cors())
 
 //APP Routes
 app.use(userRoutes)
+app.use(solicitudRoutes)
 
 //Set dotenv PORT|HOST or default values
 app.set('host', config.HOST || '0.0.0.0')
