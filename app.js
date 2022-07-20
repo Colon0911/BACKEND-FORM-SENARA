@@ -7,6 +7,9 @@ import config from './src/config/config.js'
 import userRoutes from './src/routes/user.routes.js'
 import formRoutes from './src/routes/form.routes.js'
 
+import formRoutes from './src/routes/form.routes.js'
+
+
 //Creating Server
 const app = express()
 
@@ -22,6 +25,8 @@ app.use(cors())
 
 //APP Routes
 app.use(userRoutes)
+app.use(formRoutes)
+
 app.use(formRoutes)
 
 //Set dotenv PORT|HOST or default values
