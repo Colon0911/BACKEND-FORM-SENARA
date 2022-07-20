@@ -12,7 +12,7 @@ export const addPlanRiego = async (req, res) => {
 
         const newPlan = new Plan(req.body)
         console.log(newPlan)
-        // await newPlan.save()
+        await newPlan.save()
         return res.status(200).json({ msg: "Plan Riego registrado con exito!" })
     } catch (error) {
         return res.status(500).send({ msg: "Error inesperado!" })
