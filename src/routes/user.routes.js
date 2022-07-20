@@ -1,6 +1,13 @@
 import { Router } from 'express'
 
-import { register, login, getUser, validateEmail, changePassword, updateUser } from '../controllers/userController.js'
+import {
+  register,
+  login,
+  getUser,
+  validateEmail,
+  changePassword,
+  updateUser,
+} from '../controllers/userController.js'
 
 import auth from '../middlewares/auth.js'
 
