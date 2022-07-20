@@ -10,7 +10,7 @@ export const agregarQueja = async (req, res) => {
         const newQueja = new Queja(req.body)
         console.log(newQueja)
         // await newQueja.save()
-        // return res.status(200).json({ msg: "Queja registrada con exito!" })
+        return res.status(200).json({ msg: "Queja registrada con exito!" })
     } catch (error) {
         return res.status(500).json({ msg: "Error Inesperado!" })
     }
