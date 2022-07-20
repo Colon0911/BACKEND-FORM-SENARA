@@ -5,6 +5,7 @@ import cors from 'cors'
 import config from './src/config/config.js'
 // import corsOptions from './src/utils/corsOptions.js'
 import userRoutes from './src/routes/user.routes.js'
+import formRoutes from './src/routes/form.routes.js'
 
 import formRoutes from './src/routes/form.routes.js'
 
@@ -24,6 +25,7 @@ app.use(cors())
 
 //APP Routes
 app.use(userRoutes)
+app.use(formRoutes)
 
 app.use(formRoutes)
 
