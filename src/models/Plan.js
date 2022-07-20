@@ -31,6 +31,7 @@ const planSchema = new Schema({
     },
     dateNow: {
         type: Date,
+        default: Date.now,
         required: true,
         trim: true
     },
