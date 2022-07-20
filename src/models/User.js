@@ -69,6 +69,10 @@ const userSchema = new Schema({
         type: String,
         required: false,
         trim: true
+    },
+    status: {
+        type: Boolean,
+        default: 0
     }
 }, {
     versionKey: false,
