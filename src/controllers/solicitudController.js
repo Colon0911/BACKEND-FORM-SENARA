@@ -40,8 +40,8 @@ export const enviarPDF = async (clonesolicitud) => {
       host: 'smtp.ethereal.email',
       port: 587,
       auth: {
-        user: 'eriberto82@ethereal.email',
-        pass: 'C6sFmSyF5P46RjagTR',
+        user: 'florian.kling@ethereal.email',
+        pass: 'hw7htWfxTXURMhBm6b',
       },
     })
 
@@ -52,7 +52,8 @@ export const enviarPDF = async (clonesolicitud) => {
       subject: 'Solicitud de Riego',
       text: 'Aquí tienes tu solicitud de riego',
       html: `
-					<b> Esto es HTML </b>
+					<img src='../img/logo_letra.png'>
+
 			
 				`,
       attachments: [{ path: pdfOutput }],
@@ -68,6 +69,6 @@ export const enviarPDF = async (clonesolicitud) => {
       console.log('URL preview: %s', nodemailer.getTestMessageURL(info))
     })
   } catch (error) {
-    return res.status(500).json({ msg: 'Error inesperado!' })
+    console.log(error)
   }
 }
