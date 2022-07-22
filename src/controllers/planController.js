@@ -1,8 +1,14 @@
+import path from 'path'
+import { fileURLToPath } from 'url'
+
 import nodemailer from "nodemailer"
 
 import Plan from "../models/Plan.js"
 import User from '../models/User.js'
 import { createPDF } from '../utils/PDFPlanRiego.js'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 const enviarPDF = async (data) => {
     try {
@@ -10,24 +16,35 @@ const enviarPDF = async (data) => {
         //     return res.status(401).json({ msg: "Información no suministrada!" })
         // }
 
-        let aux = await createPDF(data)
+        let pdf = await createPDF(data)
 
         const transporter = nodemailer.createTransport({
             host: "smtp.ethereal.email",
             port: 587,
             auth: {
-                user: "burnice82@ethereal.email",
-                pass: "e2BGkG22Z4KB8kRt2c",
+                user: "cristobal.hyatt@ethereal.email",
+                pass: "7P1fGZ6mzzArXWmUgb",
             },
         })
+
+        const imgPath = path.join(__dirname, '../img/logo_letra.png')
 
         const message = await transporter.sendMail({
             from: "greyson.moore11@ethereal.email",
             to: "whtvr@gmail.com",
             subject: "Probando PDF",
             text: "Tu contraseña se cambiará!",
-            html: `<b> Esto es HTML </b>`,
-            attachments: [{ path: aux }]
+            html: `
+                <img src="cid:logo_letra.png" />  
+            `,
+            attachments: [
+                { path: pdf },
+                {
+                    filename: 'logo_letra.png',
+                    path: imgPath,
+                    cid: 'logo_letra.png'
+                }
+            ]
         })
 
         transporter.sendMail(message, (err, info) => {
