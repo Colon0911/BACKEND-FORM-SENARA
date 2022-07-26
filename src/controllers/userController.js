@@ -140,8 +140,8 @@ export const validateEmail = async (req, res) => {
             host: "smtp.ethereal.email",
             port: 587,
             auth: {
-                user: "waylon.jones55@ethereal.email",
-                pass: "3F8HYuGBQ6P6Pd5tye",
+                user: "milo58@ethereal.email",
+                pass: "E3nAMQfJFd6ZMDX8Ek",
             },
         })
 
