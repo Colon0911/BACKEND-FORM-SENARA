@@ -19,9 +19,8 @@ export const solicitudCreate = async (req, res) => {
       { identification: solicitud.identification },
       { _id: 1, fullName: 1 }
     )
-    const clonesolicitud = solicitud
+    const clonesolicitud = { ...solicitud }
     clonesolicitud['fullName'] = user[0].fullName
-
     delete solicitud.identification
 
     solicitud['userID'] = user[0]._id
@@ -45,8 +44,8 @@ export const enviarPDF = async (clonesolicitud) => {
       host: 'smtp.ethereal.email',
       port: 587,
       auth: {
-        user: 'clemens50@ethereal.email',
-        pass: 'mcRDNZS6mgXsmScTuM',
+        user: 'maryse68@ethereal.email',
+        pass: 'USjpQFqjnA538g19ZS',
       },
     })
 
