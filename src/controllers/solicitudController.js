@@ -2,6 +2,11 @@ import Solicitud from '../models/Solicitud.js'
 import User from '../models/User.js'
 import nodemailer from 'nodemailer'
 import { solicitudPDF } from '../utils/solicitudPDF.js'
+import path from 'path'
+import { fileURLToPath } from 'url'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 export const solicitudCreate = async (req, res) => {
   try {
@@ -40,23 +45,35 @@ export const enviarPDF = async (clonesolicitud) => {
       host: 'smtp.ethereal.email',
       port: 587,
       auth: {
-        user: 'florian.kling@ethereal.email',
-        pass: 'hw7htWfxTXURMhBm6b',
+        user: 'clemens50@ethereal.email',
+        pass: 'mcRDNZS6mgXsmScTuM',
       },
     })
 
-    let pdfOutput = await solicitudPDF(clonesolicitud)
+    let pdf = await solicitudPDF(clonesolicitud)
+    const imgPath = path.join(__dirname, '../img/logo_letra.png')
     const message = await transporter.sendMail({
       from: 'greyson.moore11@ethereal.email',
       to: 'whtvr@gmail.com',
       subject: 'Solicitud de Riego',
       text: 'Aquí tienes tu solicitud de riego',
       html: `
-					<img src='../img/logo_letra.png'>
+      <img src="cid:logo_letra.png" />
+
+      <p>Buenos días.</p>
+      <p>De la presente forma se le adjunta una copia de la solicitud de riego.</p>
+      <p>Por favor no responder este correo.</p>
 
 			
 				`,
-      attachments: [{ path: pdfOutput }],
+      attachments: [
+        { path: pdf },
+        {
+          filename: 'logo_letra.png',
+          path: imgPath,
+          cid: 'logo_letra.png',
+        },
+      ],
     })
 
     transporter.sendMail(message, (err, info) => {
