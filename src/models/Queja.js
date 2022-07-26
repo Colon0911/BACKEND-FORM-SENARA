@@ -12,6 +12,7 @@ const quejaSchema = new Schema({
     },
     dateNow: {
         type: Date,
+        default: Date.now,
         required: true,
         trim: true
     },
@@ -25,7 +26,7 @@ const quejaSchema = new Schema({
         required: true,
         trim: true
     },
-    telefono: {
+    phone: {
         type: String,
         required: true,
         trim: true
@@ -75,11 +76,6 @@ const quejaSchema = new Schema({
         required: true,
         trim: true
     },
-    cedula: {
-        type: String,
-        required: true,
-        trim: true
-    }
 }, {
     versionKey: false
 })
