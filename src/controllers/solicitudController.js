@@ -41,19 +41,19 @@ export const solicitudCreate = async (req, res) => {
 export const enviarPDF = async (clonesolicitud) => {
   try {
     const transporter = nodemailer.createTransport({
-      host: 'smtp.ethereal.email',
+      host: 'smtp.office365.com',
       port: 587,
       auth: {
-        user: 'maryse68@ethereal.email',
-        pass: 'USjpQFqjnA538g19ZS',
+        user: 'escanerdrat@senara.go.cr',
+        pass: 'Tox15535',
       },
     })
 
     let pdf = await solicitudPDF(clonesolicitud)
     const imgPath = path.join(__dirname, '../img/logo_letra.png')
     const message = await transporter.sendMail({
-      from: 'greyson.moore11@ethereal.email',
-      to: 'whtvr@gmail.com',
+      from: 'escanerdrat@senara.go.cr',
+      to: 'gefama2824@altpano.com',
       subject: 'Solicitud de Riego',
       text: 'Aquí tienes tu solicitud de riego',
       html: `

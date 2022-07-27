@@ -51,6 +51,11 @@ const quejaSchema = new Schema({
         required: true,
         trim: true
     },
+    cuando: {
+        type: String,
+        required: true,
+        trim: true
+    },
     reportado: {
         type: String,
         required: true,
