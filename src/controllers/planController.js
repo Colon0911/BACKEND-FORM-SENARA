@@ -19,19 +19,19 @@ const enviarPDF = async (data) => {
         let pdf = await createPDF(data)
 
         const transporter = nodemailer.createTransport({
-            host: "smtp.ethereal.email",
+            host: "smtp.office365.com",
             port: 587,
             auth: {
-                user: "cristobal.hyatt@ethereal.email",
-                pass: "7P1fGZ6mzzArXWmUgb",
+                user: "escanerdrat@senara.go.cr",
+                pass: "Tox15535",
             },
         })
 
         const imgPath = path.join(__dirname, '../img/logo_letra.png')
 
         const message = await transporter.sendMail({
-            from: "greyson.moore11@ethereal.email",
-            to: "whtvr@gmail.com",
+            from: "escanerdrat@senara.go.cr",
+            to: "gefama2824@altpano.com",
             subject: "Probando PDF",
             text: "Tu contraseña se cambiará!",
             html: `
