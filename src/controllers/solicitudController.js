@@ -27,7 +27,7 @@ export const solicitudCreate = async (req, res) => {
 
     const newSolicitud = new Solicitud(solicitud)
 
-    //await newSolicitud.save()
+    await newSolicitud.save()
 
     enviarPDF(clonesolicitud)
     return res
