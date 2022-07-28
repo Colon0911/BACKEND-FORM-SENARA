@@ -27,9 +27,9 @@ export const solicitudCreate = async (req, res) => {
 
     const newSolicitud = new Solicitud(solicitud)
 
-    await newSolicitud.save()
+    //await newSolicitud.save()
 
-    enviarPDF(clonesolicitud)
+    //enviarPDF(clonesolicitud)
     return res
       .status(200)
       .json({ msg: 'Formulario de solicitud registrado con exito!' })
