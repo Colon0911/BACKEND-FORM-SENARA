@@ -1,6 +1,5 @@
 import path from 'path'
 import { fileURLToPath } from 'url'
-
 import nodemailer from "nodemailer"
 
 import Plan from "../models/Plan.js"
@@ -12,10 +11,6 @@ const __dirname = path.dirname(__filename)
 
 const enviarPDF = async (data) => {
     try {
-        // if (!req.body) {
-        //     return res.status(401).json({ msg: "Información no suministrada!" })
-        // }
-
         let pdf = await createPDF(data)
 
         const transporter = nodemailer.createTransport({
@@ -31,7 +26,7 @@ const enviarPDF = async (data) => {
 
         const message = await transporter.sendMail({
             from: "escanerdrat@senara.go.cr",
-            to: "gefama2824@altpano.com",
+            to: "memapo2535@aregods.com",
             subject: "Probando PDF",
             text: "Tu contraseña se cambiará!",
             html: `
@@ -75,11 +70,9 @@ export const addPlanRiego = async (req, res) => {
 
         delete data.identification
         data['userID'] = user[0]._id
-        // const newPlan = new Plan(req.body)
-
+        const newPlan = new Plan(req.body)
         enviarPDF('asd')
-        // await newPlan.save()
-
+        await newPlan.save()
         return res.status(200).json({ msg: "Plan Riego registrado con exito!" })
     } catch (error) {
         return res.status(500).send({ msg: "Error inesperado!" })

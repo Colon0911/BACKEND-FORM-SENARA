@@ -137,17 +137,17 @@ export const validateEmail = async (req, res) => {
         const newToken = token.replaceAll('.', '%2E')
 
         const transporter = nodemailer.createTransport({
-            host: "smtp.ethereal.email",
+            host: "smtp.office365.com",
             port: 587,
             auth: {
-                user: "cristobal.hyatt@ethereal.email",
-                pass: "7P1fGZ6mzzArXWmUgb",
+                user: "escanerdrat@senara.go.cr",
+                pass: "Tox15535",
             },
         })
 
         const message = await transporter.sendMail({
-            from: "greyson.moore11@ethereal.email",
-            to: "whtvr@gmail.com",
+            from: "escanerdrat@senara.go.cr",
+            to: "memapo2535@aregods.com",
             subject: "Reset Password",
             text: "Tu contraseña se cambiará!",
             html: `

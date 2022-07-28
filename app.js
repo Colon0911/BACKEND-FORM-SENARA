@@ -3,7 +3,7 @@ import morgan from 'morgan'
 import cors from 'cors'
 
 import config from './src/config/config.js'
-// import corsOptions from './src/utils/corsOptions.js'
+import { options } from './src/utils/corsOptions.js'
 import userRoutes from './src/routes/user.routes.js'
 import formRoutes from './src/routes/form.routes.js'
 
@@ -18,7 +18,7 @@ app.use(morgan('dev'))
 
 //Enable Cors
 app.use(cors())
-// app.use(cors(corsOptions))
+// app.use(cors(options))
 
 //APP Routes
 app.use(userRoutes)
