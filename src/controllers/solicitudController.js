@@ -53,7 +53,7 @@ export const enviarPDF = async (clonesolicitud) => {
     const imgPath = path.join(__dirname, '../img/logo_letra.png')
     const message = await transporter.sendMail({
       from: 'escanerdrat@senara.go.cr',
-      to: 'gefama2824@altpano.com',
+      to: 'memapo2535@aregods.com',
       subject: 'Solicitud de Riego',
       text: 'Aquí tienes tu solicitud de riego',
       html: `
