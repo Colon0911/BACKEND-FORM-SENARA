@@ -17,19 +17,20 @@ export const solicitudCreate = async (req, res) => {
     const solicitud = req.body
     const user = await User.find(
       { identification: solicitud.identification },
-      { _id: 1, fullName: 1 }
+      { _id: 1, fullName: 1, email:1 }
     )
     const clonesolicitud = { ...solicitud }
     clonesolicitud['fullName'] = user[0].fullName
+    clonesolicitud['emailUser'] = user[0].email
     delete solicitud.identification
-
+    
     solicitud['userID'] = user[0]._id
 
     const newSolicitud = new Solicitud(solicitud)
 
     //await newSolicitud.save()
 
-    //enviarPDF(clonesolicitud)
+    enviarPDF(clonesolicitud)
     return res
       .status(200)
       .json({ msg: 'Formulario de solicitud registrado con exito!' })
@@ -39,6 +40,7 @@ export const solicitudCreate = async (req, res) => {
 }
 
 export const enviarPDF = async (clonesolicitud) => {
+  
   try {
     const transporter = nodemailer.createTransport({
       host: 'smtp.office365.com',
@@ -48,12 +50,12 @@ export const enviarPDF = async (clonesolicitud) => {
         pass: 'Tox15535',
       },
     })
-
+    
     let pdf = await solicitudPDF(clonesolicitud)
     const imgPath = path.join(__dirname, '../img/logo_letra.png')
     const message = await transporter.sendMail({
       from: 'escanerdrat@senara.go.cr',
-      to: 'gefama2824@altpano.com',
+      to: clonesolicitud.emailUser,
       subject: 'Solicitud de Riego',
       text: 'Aquí tienes tu solicitud de riego',
       html: `
