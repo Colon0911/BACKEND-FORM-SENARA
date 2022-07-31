@@ -15,8 +15,8 @@ export default {
 		URL: 'http://localhost:3000'
 	},
 	EMAIL: {
-		HOST: 'smtp.ethereal.email',
-		USER: 'gladys17@ethereal.email',
-		PASSWORD: ' pVnujKJP3W69kRYUs4 '
+		HOST: "smtp.ethereal.email",
+		USER: "magnolia42@ethereal.email",
+		PASSWORD: "McvFwkvATR9PnZtDW8"
 	}
 }
