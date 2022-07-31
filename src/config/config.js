@@ -13,5 +13,10 @@ export default {
 	PORT: process.env.PORT || 4000,
 	FRONTEND: {
 		URL: 'http://localhost:3000'
+	},
+	EMAIL: {
+		HOST: 'smtp.ethereal.email',
+		USER: 'gladys17@ethereal.email',
+		PASSWORD: ' pVnujKJP3W69kRYUs4 '
 	}
 }

@@ -4,6 +4,7 @@ import nodemailer from 'nodemailer'
 import { solicitudPDF } from '../utils/solicitudPDF.js'
 import path from 'path'
 import { fileURLToPath } from 'url'
+import config from "../config/config.js"
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -41,18 +42,18 @@ export const solicitudCreate = async (req, res) => {
 export const enviarPDF = async (clonesolicitud) => {
   try {
     const transporter = nodemailer.createTransport({
-      host: 'smtp.office365.com',
+      host: config.EMAIL.HOST,
       port: 587,
       auth: {
-        user: 'escanerdrat@senara.go.cr',
-        pass: 'Tox15535',
+        user: config.EMAIL.USER,
+        pass: config.EMAIL.PASSWORD,
       },
     })
 
     let pdf = await solicitudPDF(clonesolicitud)
     const imgPath = path.join(__dirname, '../img/logo_letra.png')
     const message = await transporter.sendMail({
-      from: 'escanerdrat@senara.go.cr',
+      from: config.EMAIL.USER,
       to: 'memapo2535@aregods.com',
       subject: 'Solicitud de Riego',
       text: 'Aquí tienes tu solicitud de riego',

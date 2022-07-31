@@ -2,6 +2,7 @@ import Queja from "../models/Queja.js"
 import User from "../models/User.js";
 import nodemailer from 'nodemailer'
 import { PDFQuejas } from "../utils/PDFQuejas.js"
+import config from "../config/config.js"
 
 export const agregarQueja = async (req, res) => {
     try {
@@ -27,16 +28,16 @@ const enviarPDF = async () => {
         console.log("...")
         let pdf = await PDFQuejas()
         const transporter = nodemailer.createTransport({
-            host: "smtp.ethereal.email",
+            host: config.EMAIL.HOST,
             port: 587,
             auth: {
-                user: "milo58@ethereal.email",
-                pass: "E3nAMQfJFd6ZMDX8Ek",
+                user: config.EMAIL.USER,
+                pass: config.EMAIL.PASSWORD,
             },
         })
 
         const message = await transporter.sendMail({
-            from: "greyson.moore11@ethereal.email",
+            from: config.EMAIL.USER,
             to: "whtvr@gmail.com",
             subject: "Reset Password",
             text: "Tu contraseña se cambiará!",

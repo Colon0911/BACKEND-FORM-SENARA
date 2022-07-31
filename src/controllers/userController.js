@@ -193,3 +193,31 @@ export const changePassword = async (req, res) => {
         return res.status(500).json({ msg: "Error inesperado!" })
     }
 }
+
+// CheckID
+export const checkID = async (req, res) => {
+    const user = await User.find(
+        { identification: req.params.id },
+        { _id: 0, genre: 0, token: 0 }
+    )
+
+    if (user.length === 1) {
+        return res.status(200).json({msg: 'La identificación está en uso!'})
+    }
+
+    return res.status(200).json({msg: 'Identificación no en uso!'})
+}
+
+// CheckEmail
+export const checkEmail = async (req, res) => {
+    const user = await User.find(
+        { email: req.params.email },
+        { _id: 0, genre: 0, token: 0 }
+    )
+
+    if (user.length === 1) {
+        return res.status(200).json({msg: 'El email está en uso!'})
+    }
+
+    return res.status(200).json({msg: 'El email no en uso!'})
+}
