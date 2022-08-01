@@ -16,7 +16,7 @@ export default {
 	},
 	EMAIL: {
 		HOST: "smtp.ethereal.email",
-		USER: "magnolia42@ethereal.email",
-		PASSWORD: "McvFwkvATR9PnZtDW8"
+		USER: "lambert.ankunding@ethereal.email",
+		PASSWORD: "YQfzZzxGS3kWyKcakn"
 	}
 }

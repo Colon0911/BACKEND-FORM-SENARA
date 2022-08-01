@@ -1,5 +1,5 @@
 import { jsPDF } from 'jspdf'
-import autoTable from 'jspdf-autotable'
+import 'jspdf-autotable'
 
 export const createPDF = async (data) => {
     const crops = data.crops
@@ -71,7 +71,7 @@ export const createPDF = async (data) => {
     // Section 3
     // Crops Table
 
-    autoTable(doc, {
+    doc.autoTable({
         startY: 110,
         styles: {
             valign: 'middle',

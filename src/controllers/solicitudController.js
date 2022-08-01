@@ -18,10 +18,11 @@ export const solicitudCreate = async (req, res) => {
     const solicitud = req.body
     const user = await User.find(
       { identification: solicitud.identification },
-      { _id: 1, fullName: 1 }
+      { _id: 1, fullName: 1, email: 1 }
     )
     const clonesolicitud = { ...solicitud }
     clonesolicitud['fullName'] = user[0].fullName
+    clonesolicitud['emailUser'] = user[0].email
     delete solicitud.identification
 
     solicitud['userID'] = user[0]._id
@@ -54,7 +55,7 @@ export const enviarPDF = async (clonesolicitud) => {
     const imgPath = path.join(__dirname, '../img/logo_letra.png')
     const message = await transporter.sendMail({
       from: config.EMAIL.USER,
-      to: 'memapo2535@aregods.com',
+      to: clonesolicitud.emailUser,
       subject: 'Solicitud de Riego',
       text: 'Aquí tienes tu solicitud de riego',
       html: `

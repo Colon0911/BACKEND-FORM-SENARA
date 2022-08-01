@@ -23,6 +23,9 @@ const enviarPDF = async (data) => {
                 user: config.EMAIL.USER,
                 pass: config.EMAIL.PASSWORD,
             },
+            tls: {
+                rejectUnauthorized: false
+            }
         })
 
         const imgPath = path.join(__dirname, '../img/logo_letra.png')
