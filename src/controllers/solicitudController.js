@@ -46,15 +46,15 @@ export const enviarPDF = async (clonesolicitud) => {
       host: 'smtp.office365.com',
       port: 587,
       auth: {
-        user: 'escanerdrat@senara.go.cr',
-        pass: 'Tox15535',
+        user: 'senaratesten@outlook.com',
+        pass: 'testen1234',
       },
     })
     
     let pdf = await solicitudPDF(clonesolicitud)
     const imgPath = path.join(__dirname, '../img/logo_letra.png')
     const message = await transporter.sendMail({
-      from: 'escanerdrat@senara.go.cr',
+      from: 'senaratesten@outlook.com',
       
       to: clonesolicitud.emailUser,
 
