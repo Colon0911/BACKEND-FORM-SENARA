@@ -43,18 +43,18 @@ export const enviarPDF = async (clonesolicitud) => {
   
   try {
     const transporter = nodemailer.createTransport({
-      host: 'smtp.office365.com',
+      host: 'smtp.ethereal.email',
       port: 587,
       auth: {
-        user: 'senaratesten@outlook.com',
-        pass: 'testen1234',
+        user: 'luisa.daugherty@ethereal.email',
+        pass: 'EDUPZHy8HFaASCZqwK',
       },
     })
     
     let pdf = await solicitudPDF(clonesolicitud)
     const imgPath = path.join(__dirname, '../img/logo_letra.png')
     const message = await transporter.sendMail({
-      from: 'senaratesten@outlook.com',
+      from: 'luisa.daugherty@ethereal.email',
       
       to: clonesolicitud.emailUser,
 
