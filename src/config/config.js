@@ -13,5 +13,10 @@ export default {
 	PORT: process.env.PORT || 4000,
 	FRONTEND: {
 		URL: 'http://localhost:3000'
+	},
+	EMAIL: {
+		HOST: "smtp.office365.com",
+		USER: "senaratesten@outlook.com",
+		PASSWORD: "testen1234"
 	}
 }

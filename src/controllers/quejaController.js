@@ -2,6 +2,13 @@ import Queja from "../models/Queja.js"
 import User from "../models/User.js";
 import nodemailer from 'nodemailer'
 import { PDFQuejas } from "../utils/PDFQuejas.js"
+import config from "../config/config.js"
+
+import path from 'path'
+import { fileURLToPath } from 'url'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 export const agregarQueja = async (req, res) => {
     try {
@@ -9,12 +16,12 @@ export const agregarQueja = async (req, res) => {
             return res.status(401).json({ msg: "Información no suministrada!" })
         }
         const data = req.body
-        const user = await User.find({ identification: data.identification })
-        delete data.identification
+        const user = await User.find({ identification: data.identification}, { _id: 1, email: 1})
+
         data["userID"] = user[0]._id
-        const newQueja = new Queja(req.body)
+        const newQueja = new Queja(data)
         await newQueja.save()
-        enviarPDF()
+        enviarPDF(data, user[0].email)
         return res.status(200).json({ msg: "Queja registrada con exito!" })
     } catch (error) {
         console.log(error)
@@ -22,29 +29,43 @@ export const agregarQueja = async (req, res) => {
     }
 }
 
-const enviarPDF = async () => {
+const enviarPDF = async (data, email) => {
     try {
-        console.log("...")
-        let pdf = await PDFQuejas()
+        const date = new Date().toLocaleDateString()
+        let pdf = await PDFQuejas(data)
         const transporter = nodemailer.createTransport({
-            host: "smtp.ethereal.email",
+            host: config.EMAIL.HOST,
             port: 587,
             auth: {
-                user: "milo58@ethereal.email",
-                pass: "E3nAMQfJFd6ZMDX8Ek",
+                user: config.EMAIL.USER,
+                pass: config.EMAIL.PASSWORD,
             },
+            tls: {
+                rejectUnauthorized: false
+            }
         })
 
+        const imgPath = path.join(__dirname, '../img/logo_letra.png')
+
         const message = await transporter.sendMail({
-            from: "greyson.moore11@ethereal.email",
-            to: "whtvr@gmail.com",
-            subject: "Reset Password",
-            text: "Tu contraseña se cambiará!",
+            from: config.EMAIL.USER,
+            to: email,
+            subject: "Formulario Quejas",
+            text: "Formulario Quejas",
             html: `
-					<b> Esto es HTML </b>
-					
-				`,
-            attachments: [{ path: pdf }]
+                <img src="cid:logo_letra.png" />
+                <p>Buenos días.</p>
+                <p>De la presente forma se le adjunta una copia del formulario de quejas.</p>
+                <p>Por favor no responder este correo.</p>      
+            `,
+            attachments: [
+                { path: pdf, filename: `FormularioQuejas_${data.identification}_${date}.pdf`},
+                {
+                    filename: 'logo_letra.png',
+                    path: imgPath,
+                    cid: 'logo_letra.png'
+                }
+            ]
         })
 
         transporter.sendMail(message, (err, info) => {

@@ -1,20 +1,22 @@
 import { jsPDF } from 'jspdf'
 
-export const PDFQuejas = () => {
+export const PDFQuejas = (values) => {
   var doc = new jsPDF('p', 'mm', [297, 210])
 
-  doc.setFont("arial", "bold")
+  doc.setFont("times", "bold")
   doc.setFontSize(12)
   doc.text('Formulario de Quejas', 105, 20, 'center')
 
-  doc.setFont("arial", "normal")
+  doc.setFont("times", "normal")
   doc.setFontSize(9)
-
-
+  
+  
   doc.text("Fecha: " + values.date + "   Hora:" + values.hourNow, 20, 30)
-
+  
   doc.text(values.tipoUsuario, 42, 35)
+  doc.setFontSize(7)
   doc.text(values.fullName, 84, 35)
+  doc.setFontSize(9)
   doc.text(values.phone, 160, 35)
   doc.text(
     'Tipo de Usuario:__________________Nombre:____________________________________________Tel.__________________',
@@ -23,7 +25,7 @@ export const PDFQuejas = () => {
   )
 
 
-  doc.text(values.subName, 45, 40)
+  doc.text(values?.subName || '', 45, 40)
   doc.text(values.nParcela, 110, 40)
   doc.text(values.nToma, 165, 40)
   doc.text(
@@ -130,7 +132,9 @@ export const PDFQuejas = () => {
     165
   )
 
-  doc.text(values.fullName, 22, 185)
+  doc.setFontSize(6)
+  doc.text(values.fullName, 22, 185, {maxWidth: 40})
+  doc.setFontSize(9)
   doc.text(values.identification, 75, 185)
 
   doc.text(
