@@ -122,8 +122,8 @@ export const solicitudPDF = (obj) => {
     165
   )
   doc.text('Observaciones: ' + obj.observaciones + '', 20, 175)
-
-  const pdf = doc.output('datauristring')
+  
+  const pdf = doc.output('datauristring',{filename: 'solicitudderiego_' + obj.identification + '_' + dateNow() + '.pdf'})
   return pdf
 }
 
