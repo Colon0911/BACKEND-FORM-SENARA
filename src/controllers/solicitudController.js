@@ -24,12 +24,12 @@ export const solicitudCreate = async (req, res) => {
     clonesolicitud['fullName'] = user[0].fullName
     clonesolicitud['emailUser'] = user[0].email
     delete solicitud.identification
-
+    
     solicitud['userID'] = user[0]._id
 
     const newSolicitud = new Solicitud(solicitud)
 
-    await newSolicitud.save()
+    //await newSolicitud.save()
 
     enviarPDF(clonesolicitud)
     return res
@@ -41,6 +41,7 @@ export const solicitudCreate = async (req, res) => {
 }
 
 export const enviarPDF = async (clonesolicitud) => {
+  
   try {
     const transporter = nodemailer.createTransport({
       host: config.EMAIL.HOST,
@@ -50,7 +51,7 @@ export const enviarPDF = async (clonesolicitud) => {
         pass: config.EMAIL.PASSWORD,
       },
     })
-
+    
     let pdf = await solicitudPDF(clonesolicitud)
     const imgPath = path.join(__dirname, '../img/logo_letra.png')
     const message = await transporter.sendMail({
