@@ -13,7 +13,7 @@ export const agregarQueja = async (req, res) => {
         delete data.identification
         data["userID"] = user[0]._id
         const newQueja = new Queja(req.body)
-        // await newQueja.save()
+        await newQueja.save()
         enviarPDF()
         return res.status(200).json({ msg: "Queja registrada con exito!" })
     } catch (error) {

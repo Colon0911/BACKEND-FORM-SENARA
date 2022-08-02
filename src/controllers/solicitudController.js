@@ -55,7 +55,9 @@ export const enviarPDF = async (clonesolicitud) => {
     const imgPath = path.join(__dirname, '../img/logo_letra.png')
     const message = await transporter.sendMail({
       from: 'escanerdrat@senara.go.cr',
+      
       to: clonesolicitud.emailUser,
+
       subject: 'Solicitud de Riego',
       text: 'Aquí tienes tu solicitud de riego',
       html: `

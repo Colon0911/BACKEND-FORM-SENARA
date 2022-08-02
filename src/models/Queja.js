@@ -37,12 +37,12 @@ const quejaSchema = new Schema({
         trim: true
     },
     nParcela: {
-        type: String,
+        type: Number,
         required: true,
         trim: true
     },
     nToma: {
-        type: String,
+        type: Number,
         required: true,
         trim: true
     },
