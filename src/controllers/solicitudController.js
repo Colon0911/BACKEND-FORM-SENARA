@@ -4,6 +4,7 @@ import nodemailer from 'nodemailer'
 import { solicitudPDF } from '../utils/solicitudPDF.js'
 import path from 'path'
 import { fileURLToPath } from 'url'
+import config from "../config/config.js"
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -17,7 +18,7 @@ export const solicitudCreate = async (req, res) => {
     const solicitud = req.body
     const user = await User.find(
       { identification: solicitud.identification },
-      { _id: 1, fullName: 1, email:1 }
+      { _id: 1, fullName: 1, email: 1 }
     )
     const clonesolicitud = { ...solicitud }
     clonesolicitud['fullName'] = user[0].fullName
@@ -43,21 +44,32 @@ export const enviarPDF = async (clonesolicitud) => {
   
   try {
     const transporter = nodemailer.createTransport({
+<<<<<<< HEAD
       host: 'smtp.ethereal.email',
       port: 587,
       auth: {
         user: 'luisa.daugherty@ethereal.email',
         pass: 'EDUPZHy8HFaASCZqwK',
+=======
+      host: config.EMAIL.HOST,
+      port: 587,
+      auth: {
+        user: config.EMAIL.USER,
+        pass: config.EMAIL.PASSWORD,
+>>>>>>> ae7e63de2894aa954dce32b937614529dfcc7aa7
       },
     })
     
     let pdf = await solicitudPDF(clonesolicitud)
     const imgPath = path.join(__dirname, '../img/logo_letra.png')
     const message = await transporter.sendMail({
+<<<<<<< HEAD
       from: 'luisa.daugherty@ethereal.email',
       
+=======
+      from: config.EMAIL.USER,
+>>>>>>> ae7e63de2894aa954dce32b937614529dfcc7aa7
       to: clonesolicitud.emailUser,
-
       subject: 'Solicitud de Riego',
       text: 'Aquí tienes tu solicitud de riego',
       html: `

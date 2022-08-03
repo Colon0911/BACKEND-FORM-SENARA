@@ -2,9 +2,12 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 import nodemailer from "nodemailer"
 
+import config from "../config/config.js"
+
 import Plan from "../models/Plan.js"
 import User from '../models/User.js'
 import { createPDF } from '../utils/PDFPlanRiego.js'
+
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -14,26 +17,29 @@ const enviarPDF = async (data) => {
         let pdf = await createPDF(data)
 
         const transporter = nodemailer.createTransport({
-            host: "smtp.office365.com",
+            host: config.EMAIL.HOST,
             port: 587,
             auth: {
-                user: "escanerdrat@senara.go.cr",
-                pass: "Tox15535",
+                user: config.EMAIL.USER,
+                pass: config.EMAIL.PASSWORD,
             },
+            tls: {
+                rejectUnauthorized: false
+            }
         })
 
         const imgPath = path.join(__dirname, '../img/logo_letra.png')
 
         const message = await transporter.sendMail({
-            from: "escanerdrat@senara.go.cr",
-            to: "memapo2535@aregods.com",
+            from: config.EMAIL.USER,
+            to: data.email,
             subject: "Probando PDF",
             text: "Tu contraseña se cambiará!",
             html: `
                 <img src="cid:logo_letra.png" />  
             `,
             attachments: [
-                { path: pdf },
+                { path: pdf, filename: `FormularioSolicitudInscripcioPlanRiego_${data.identification}_${data.date}.pdf`},
                 {
                     filename: 'logo_letra.png',
                     path: imgPath,
@@ -65,14 +71,13 @@ export const addPlanRiego = async (req, res) => {
         const data = req.body
         const user = await User.find(
             { identification: data.identification },
-            { _id: 1, fullName: 1 }
+            { _id: 1, fullName: 1, identification: 1 }
         )
 
-        delete data.identification
         data['userID'] = user[0]._id
-        const newPlan = new Plan(req.body)
-        enviarPDF('asd')
-        await newPlan.save()
+        const newPlan = new Plan(data)
+        enviarPDF(data)
+        // await newPlan.save()
         return res.status(200).json({ msg: "Plan Riego registrado con exito!" })
     } catch (error) {
         return res.status(500).send({ msg: "Error inesperado!" })
